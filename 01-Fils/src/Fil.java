@@ -1,19 +1,42 @@
-public class Fil implements Runnable {
+public class Fil extends Thread{
 
-    private final int contador;
+    private final String nombre;
+    private final int delay;
+    
 
-    Fil(int contador) {
-        this.contador = contador;
+    public Fil(String nombre, int delay) {
+        
+        super(nombre);
+        this.nombre = nombre;
+        this.delay = delay;
     }
 
     @Override
     public void run() {
 
-        contador = 1;
-        for(int i = 0; i <= 1000; i++) {
-            contador++;
-        }
-        System.out.println("Acaba thread main");
+        for (int i = 1; i <= 9; i++) {
+
+            System.out.println(nombre + " " + i);
+
+             if (delay > 0) {
+
+                try {
+                    Thread.sleep(delay);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }    
+                
+             } else {
+                int contador = 1;
+
+                for(int j = 0; j <= 1000; j++) {
+                    contador++;
+                }
+            }
+        }    
+
+        System.out.println("Acaba el fil: " + nombre);
+        
     }
 
 }
