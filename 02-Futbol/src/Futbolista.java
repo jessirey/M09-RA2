@@ -1,13 +1,14 @@
 public class Futbolista extends Thread {
 
-    private final int NUM_JUGADORS = 11;
-    private final int NUM_TIRADES = 20;
-    private final float PROBABILITAT = 0.5f;
+    private static final int NUM_JUGADORS = 11;
+    private static final int NUM_TIRADES = 20;
+    private static final float PROBABILITAT = 0.5f;
 
     private int ngols;
     private int ntirades;
     
-    public Futbolista() {
+    public Futbolista(String nombre) {
+        super(nombre);
         ngols = 0;
         ntirades= 0;
     }
@@ -28,60 +29,42 @@ public class Futbolista extends Thread {
     @Override 
     public void run() {
 
-        for (int i = 0; i <= NUM_JUGADORS; i++) {
-                       
-            for(int j = 0; j <=NUM_TIRADES; j++) {
+        for(int j = 1; j <=NUM_TIRADES; j++) {
                 
-                if(Math.random() > PROBABILITAT) {
-                    ngols++;
-                }
-                ntirades++;
-                
+            if(Math.random() < PROBABILITAT) {
+                ngols++;
             }
+            ntirades++;
+              
         }
         
     }
-
-
-
-
     public static void main(String[] args) {
         
-        Futbolista pique = new Futbolista();
-        Futbolista vinicus = new Futbolista();
-        Futbolista torres = new Futbolista();
-        Futbolista ramos = new Futbolista();
-        Futbolista ronaldo = new Futbolista();
-        Futbolista lewan = new Futbolista();
-        Futbolista belli = new Futbolista();
-        Futbolista arnau = new Futbolista();
-        Futbolista aspas = new Futbolista();
-        Futbolista messi = new Futbolista();
-        Futbolista mbape = new Futbolista();
-        
-        pique.setName("Piqué");
-        vinicus.setName("Vinicus");
-        torres.setName("Torres");
-        ramos.setName("Ramos");
-        ronaldo.setName("Ronaldo");
-        lewan.setName("Lewan");
-        belli.setName("Belli");
-        arnau.setName("Arnau");
-        aspas.setName("Aspas");
-        messi.setName("Messi");
-        mbape.setName("MBapé");
+        String[] nombreFutbolistas = {"Piqué", "Vinicius", "Torres", "Ramos", "Ronaldo",
+                         "Lewan", "Belli", "Arnau", "Aspas", "Messi", "MBapé"};
 
-        pique.start();
-        vinicus.start();
-        torres.start();
-        ramos.start();
-        ronaldo.start();
-        lewan.start();
-        belli.start();
-        arnau.start();
-        aspas.start();
-        messi.start();
-        mbape.start();
+        Futbolista[] futbolistas = new Futbolista[NUM_JUGADORS];
+
+        for (int i = 0; i < NUM_JUGADORS; i++) {
+            futbolistas[i] = new Futbolista(nombreFutbolistas[i]);
+        }
+
+        System.out.println("Inici dels xuts---------------");
+        for (Futbolista futbol : futbolistas ) {
+            futbol.start();
+        }
+        System.out.println("Fi dels xuts---------------");
+        System.out.println("-------Estadístiques-------");
+        for (Futbolista futbol : futbolistas) {
+
+            try {
+                futbol.join();               
+            } catch (InterruptedException e) {
+                System.err.println("Error");
+            }
+            System.out.printf("%-10s-> %d gols\n", futbol.getName(), futbol.ngols);
+        }
 
     }
 
