@@ -1,12 +1,13 @@
 public class Administracio {
 
-    private static int num_poblacio_activa = 50;
+    private int num_poblacio_activa = 50;
     private Treballador[] poblacio_activa;
 
     public Administracio() {
         poblacio_activa =  new Treballador[num_poblacio_activa];
-        for (int i = 0; i < poblacio_activa.length; i++) {
-            poblacio_activa[i] = new Treballador("Ciutadà", 25000, 20, 65);
+        for (int i = 0; i < num_poblacio_activa; i++) {
+            
+            poblacio_activa[i] = new Treballador("Ciutadà-"+ i, 25000, 20, 65);
         }
     }
 

@@ -10,7 +10,7 @@ public class Treballador extends Thread {
     private int edat_actual;
     private Random rnd;
 
-    public Treballador(String nombre, float sou_anual_brut, int edat_inici_treball, int edad_fi_treball) {
+    public Treballador(String nombre, int sou_anual_brut, int edat_inici_treball, int edad_fi_treball) {
         super(nombre);
         this.sou_anual_brut = sou_anual_brut;
         this.edat_inici_treball = edat_inici_treball;
